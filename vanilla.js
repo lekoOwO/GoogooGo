@@ -7,19 +7,6 @@ function next(elem, selector) {
 	}
 };
 
-function findGetParameter(parameterName) {
-    let result = null,
-        tmp = [];
-    location.search
-        .substr(1)
-        .split("&")
-        .forEach(function (item) {
-          tmp = item.split("=");
-          if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
-        });
-    return result;
-}
-
 document.addEventListener('DOMContentLoaded', () => {
     for (const select of document.querySelectorAll('select')) {
         select.classList.add('select-hidden')
@@ -82,15 +69,21 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 function go() {
-    if (window.location.hash || findGetParameter('q')) {
-        const query = window.location.hash ? window.location.hash.slice("#q=".length) : findGetParameter('q');
-        if (localStorage.getItem("p") === null) {
-            localStorage.setItem("p", 0.5);
-        }
-        const prob = parseFloat(localStorage.getItem("p"))
-        const dest = (Math.random() > prob) ? `https://www.google.com/search?q=${query}` : `https://duckduckgo.com?q=${query}`;
-        location.href = dest;
+    let query = "";
+    if (window.location.hash) {
+        query = window.location.hash.slice("#q=".length);
+    } else if (window.location.search) {
+        const urlParams = new URLSearchParams(window.location.search);
+        query = urlParams.get('q')
     }
+    if (!query) return;
+    
+    if (localStorage.getItem("p") === null) {
+        localStorage.setItem("p", 0.5);
+    }
+    const prob = parseFloat(localStorage.getItem("p"))
+    const dest = (Math.random() > prob) ? `https://www.google.com/search?q=${query}` : `https://duckduckgo.com?q=${query}`;
+    location.href = dest;
 }
 document.addEventListener('DOMContentLoaded', go);
 
