@@ -74,7 +74,7 @@ function go() {
         query = window.location.hash.slice("#q=".length);
     } else if (window.location.search) {
         const urlParams = new URLSearchParams(window.location.search);
-        query = urlParams.get('q')
+        query = encodeURIComponent(urlParams.get('q'))
     }
     if (!query) return;
     
