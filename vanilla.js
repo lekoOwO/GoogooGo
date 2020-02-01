@@ -83,9 +83,10 @@ function go() {
     }
     const prob = parseFloat(localStorage.getItem("p"))
     const dest = (Math.random() > prob) ? `https://www.google.com/search?q=${query}` : `https://duckduckgo.com?q=${query}`;
-    location.href = dest;
+    location.replace(dest);
 }
 document.addEventListener('DOMContentLoaded', go);
+window.location.hash.addEventListener('change', go);
 
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('search').addEventListener('click', () => {
