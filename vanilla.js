@@ -7,6 +7,19 @@ function next(elem, selector) {
 	}
 };
 
+function findGetParameter(parameterName) {
+    let result = null,
+        tmp = [];
+    location.search
+        .substr(1)
+        .split("&")
+        .forEach(function (item) {
+          tmp = item.split("=");
+          if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+        });
+    return result;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     for (const select of document.querySelectorAll('select')) {
         select.classList.add('select-hidden')
@@ -69,8 +82,8 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 function go() {
-    if (window.location.hash) {
-        const query = window.location.hash.slice("#q=".length);
+    if (window.location.hash || findGetParameter('q')) {
+        const query = window.location.hash ? window.location.hash.slice("#q=".length) : findGetParameter('q');
         if (localStorage.getItem("p") === null) {
             localStorage.setItem("p", 0.5);
         }
@@ -83,6 +96,7 @@ document.addEventListener('DOMContentLoaded', go);
 
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('search').addEventListener('click', () => {
+        event.preventDefault();
         const text = encodeURIComponent(document.getElementById('searchText').value);
         if (text.length === 0) return;
 

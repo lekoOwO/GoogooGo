@@ -11,7 +11,7 @@ body {
     height: 40px;
     border-radius: 40px;
     padding: 10px;
-    width: fit-content;
+    width: max-content;
 }
 
 .searchBox:hover > .searchInput {
