@@ -6,9 +6,7 @@
   <InputEncoding>UTF-8</InputEncoding>
   <!-- <Image width="16" height="16" type="image/x-icon">[https://example.com/favicon.ico]</Image> -->
   <Url type="text/html" method="get" template="https://search.leko.moe/#q={searchTerms}" />
-  <Url type="application/x-suggestions+json" template="https://duckduckgo.com/ac/?q={searchTerms}&amp;type=list"/>
-  <Url type="application/opensearchdescription+xml"
-     rel="self"
-     template="https://search.leko.moe/opensearch.xml" />
+  <Url type="application/json" rel="suggestions" template="https://duckduckgo.com/ac/?q={searchTerms}&amp;type=list"/>
+  <Url type="application/opensearchdescription+xml" rel="self" template="https://search.leko.moe/opensearch.xml" />
   <moz:SearchForm>https://search.leko.moe/</moz:SearchForm>
 </OpenSearchDescription>
